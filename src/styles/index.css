@@ -1,3 +1,8 @@
-/* 
-    General Styles
-*/
+.card {
+    margin: 0.5rem;
+} 
+
+.card img {
+    width: 100%;
+    height: auto;
+}
