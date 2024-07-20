@@ -1,45 +1,101 @@
+import { CharacterDispatcher } from "./characterDispatcher";
+import { CharacterDetailsDispatcher } from "./characterDetailsDispatcher";
+import { PlanetDispatcher } from "./planetDispatcher";
+import { PlanetDetailsDispatcher } from "./planetDetailsDispatcher";
+
 const getState = ({ getStore, getActions, setStore }) => {
-	return {
-		store: {
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
-		},
-		actions: {
-			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
-			},
-			loadSomeData: () => {
-				/**
-					fetch().then().then(data => setStore({ "foo": data.bar }))
-				*/
-			},
-			changeColor: (index, color) => {
-				//get the store
-				const store = getStore();
+  return {
+    store: {
+      characters: [], 
+      planets: [],
+      favorites: [],
+    },
 
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
+    actions: {
+      getCharacters: async () => {
+        try {
+          const store = getStore();
+          const data = await CharacterDispatcher.get();
+          const characterPromises = data.results.map(async (character) => {
+            return await getActions().getCharactersDetail(character.uid);
+          });
 
-				//reset the global store
-				setStore({ demo: demo });
-			}
-		}
-	};
+          const charactersDetails = await Promise.all(characterPromises);
+          console.log("Fetched characters details:", charactersDetails);
+
+          setStore({ characters: charactersDetails });
+        } catch (error) {
+          console.log("The characters have not been found", error);
+        }
+      },
+
+      getCharactersDetail: async (uid) => {
+        try {
+          const store = getStore();
+          const data = await CharacterDetailsDispatcher.get(uid);
+
+          return {
+            description: data.result.description,
+            uid: data.result.uid,
+            ...data.result.properties,
+          };
+        } catch (error) {
+          console.log("The character details have not been found", error);
+          return null;
+        }
+      },
+
+      getPlanets: async () => {
+        try {
+          const store = getStore();
+          const data = await PlanetDispatcher.get();
+          const planetPromises = data.results.map(async (planet) => {
+            return await getActions().getPlanetsDetail(planet.uid);
+          });
+
+          const planetsDetails = await Promise.all(planetPromises);
+          console.log("Fetched planets details:", planetsDetails);
+
+          setStore({ planets: planetsDetails });
+        } catch (error) {
+          console.log("The planets have not been found", error);
+        }
+      },
+
+      getPlanetsDetail: async (uid) => {
+        try {
+          const store = getStore();
+          const data = await PlanetDetailsDispatcher.get(uid);
+
+          return {
+            description: data.result.description,
+            uid: data.result.uid,
+            ...data.result.properties,
+          };
+        } catch (error) {
+          console.log("The character details have not been found", error);
+          return null;
+        }
+      },
+
+      
+      addFavorite: (item) => {
+        const store = getStore();
+        setStore({
+          ...store,
+          favorites: [...store.favorites, item]
+        });
+      },
+
+      removeFavorite: (uid) => {
+        const store = getStore();
+        setStore({
+          ...store,
+          favorites: store.favorites.filter(fav => fav.uid !== uid)
+        });
+      }
+    },
+  };
 };
 
 export default getState;
