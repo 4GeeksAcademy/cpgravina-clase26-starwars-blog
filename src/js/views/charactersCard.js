@@ -5,17 +5,17 @@ import "../../styles/demo.css";
 
 export const CharactersCard = ({ characters }) => {
   const { store, actions } = useContext(Context);
-  const [isFavorite, setIsFavorite] = useState(store.favorites.some(fav => fav.uid === characters.uid));
+  const [isFavorite, setIsFavorite] = useState(
+    store.favorites.some((fav) => fav.uid === characters.uid)
+  );
 
   const addFavorite = () => {
     if (isFavorite) {
-      // Remove from favorites if it's already selected
       actions.removeFavorite(characters.uid);
     } else {
-      // Add to favorites if it's not selected
       actions.addFavorite(characters);
     }
-    setIsFavorite(!isFavorite); // Toggle the state
+    setIsFavorite(!isFavorite);
   };
 
   const handleImageError = (e) => {
@@ -49,9 +49,11 @@ export const CharactersCard = ({ characters }) => {
               Learn more!
             </Link>
             <i
-              className={`fa-heart fs-1 ${isFavorite ? 'fa-solid' : 'fa-regular'}`} // Conditional class
+              className={`fa-heart fs-1 ${
+                isFavorite ? "fa-solid" : "fa-regular"
+              }`}
               onClick={addFavorite}
-              style={{ cursor: 'pointer' }} // Ensure the icon is clickable
+              style={{ cursor: "pointer" }}
             ></i>
           </div>
         </div>

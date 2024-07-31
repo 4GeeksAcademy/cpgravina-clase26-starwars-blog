@@ -7,13 +7,12 @@ export const PlanetDetailsCard = () => {
   const { store } = useContext(Context);
   const { uid } = useParams();
 
-  // Find planet by uid
-  const planet = store.planets.find(pl => pl.uid === uid);
-  
+  const planet = store.planets.find((pl) => pl.uid === uid);
+
   if (!planet) {
     return <p>Planet not found</p>;
   }
-  
+
   return (
     <div className="container d-flex justify-content-center m-auto">
       <div className="card" style={{ width: "50rem" }}>
@@ -23,13 +22,19 @@ export const PlanetDetailsCard = () => {
               src={`https://starwars-visualguide.com/assets/img/planets/${planet.uid}.jpg`}
               className="card-img-top mt-3 p-3"
               alt={`Image of ${planet.name}`}
-              onError={(e) => e.target.src = "https://placehold.co/286x286"} // Fallback image
+              onError={(e) => (e.target.src = "https://placehold.co/286x286")}
             />
           </div>
           <div className="card-body p-3 col" style={{ width: "25rem" }}>
             <h5 className="card-title text-center fs-1 p-1">{planet.name}</h5>
             <p className="card-text text-center me-3">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+              reprehenderit in voluptate velit esse cillum dolore eu fugiat
+              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+              sunt in culpa qui officia deserunt mollit anim id est laborum.
             </p>
           </div>
         </div>

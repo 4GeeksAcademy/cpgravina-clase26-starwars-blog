@@ -6,7 +6,7 @@ import { PlanetDetailsDispatcher } from "./planetDetailsDispatcher";
 const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
-      characters: [], 
+      characters: [],
       planets: [],
       favorites: [],
     },
@@ -78,12 +78,11 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
-      
       addFavorite: (item) => {
         const store = getStore();
         setStore({
           ...store,
-          favorites: [...store.favorites, item]
+          favorites: [...store.favorites, item],
         });
       },
 
@@ -91,9 +90,9 @@ const getState = ({ getStore, getActions, setStore }) => {
         const store = getStore();
         setStore({
           ...store,
-          favorites: store.favorites.filter(fav => fav.uid !== uid)
+          favorites: store.favorites.filter((fav) => fav.uid !== uid),
         });
-      }
+      },
     },
   };
 };
