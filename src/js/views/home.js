@@ -3,7 +3,6 @@ import "../../styles/home.css";
 import { Context } from "../store/appContext";
 import { CharactersCard } from "./charactersCard";
 import { PlanetsCard } from "./planetsCard";
-import { CharacterDetailsCard } from "./characterDetailsCard";
 
 export const Home = () => {
   const { store, actions } = useContext(Context);
@@ -11,22 +10,29 @@ export const Home = () => {
   return (
     <div className="container mt-5">
       <p className="fs-1 text-danger">Characters</p>
-      <div className="row">
+      <div className="overflow-auto d-flex">
         {store.characters.map((character, index) => (
-          <div className="col-12 col-md-6 col-lg-3 mb-4" key={index}>
+          <div
+            className="flex-shrink-0 me-3"
+            key={index}
+            style={{ width: "18rem" }}
+          >
             <CharactersCard characters={character} />
           </div>
         ))}
       </div>
       <p className="fs-1 text-danger">Planets</p>
-      <div className="row">
+      <div className="overflow-auto d-flex">
         {store.planets.map((planet, index) => (
-          <div className="col-12 col-md-6 col-lg-3 mb-4" key={index}>
+          <div
+            className="flex-shrink-0 me-3"
+            key={index}
+            style={{ width: "18rem" }}
+          >
             <PlanetsCard planets={planet} />
           </div>
         ))}
       </div>
     </div>
-    
   );
 };

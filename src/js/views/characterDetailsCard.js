@@ -6,14 +6,13 @@ import "../../styles/demo.css";
 export const CharacterDetailsCard = () => {
   const { store } = useContext(Context);
   const { uid } = useParams();
-  
-  // Find character by uid
-  const character = store.characters.find(char => char.uid === uid);
-  
+
+  const character = store.characters.find((char) => char.uid === uid);
+
   if (!character) {
     return <p>Character not found</p>;
   }
-  
+
   return (
     <div className="container d-flex justify-content-center m-auto">
       <div className="card" style={{ width: "50rem" }}>
@@ -23,13 +22,21 @@ export const CharacterDetailsCard = () => {
               src={`https://starwars-visualguide.com/assets/img/characters/${character.uid}.jpg`}
               className="card-img-top mt-3 p-3"
               alt={`Image of ${character.name}`}
-              onError={(e) => e.target.src = "https://placehold.co/286x286"} // Fallback image
+              onError={(e) => (e.target.src = "https://placehold.co/286x286")}
             />
           </div>
           <div className="card-body p-3 col" style={{ width: "25rem" }}>
-            <h5 className="card-title text-center fs-1 p-1">{character.name}</h5>
+            <h5 className="card-title text-center fs-1 p-1">
+              {character.name}
+            </h5>
             <p className="card-text text-center me-3">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+              reprehenderit in voluptate velit esse cillum dolore eu fugiat
+              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+              sunt in culpa qui officia deserunt mollit anim id est laborum.
             </p>
           </div>
         </div>
@@ -89,4 +96,3 @@ export const CharacterDetailsCard = () => {
     </div>
   );
 };
-

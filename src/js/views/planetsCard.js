@@ -9,13 +9,11 @@ export const PlanetsCard = ({ planets }) => {
 
   const addFavorite = () => {
     if (isFavorite) {
-      // Remove from favorites if it's already selected
       actions.removeFavorite(planets.uid);
     } else {
-      // Add to favorites if it's not selected
       actions.addFavorite(planets);
     }
-    setIsFavorite(!isFavorite); // Toggle the state
+    setIsFavorite(!isFavorite); 
   };
 
   const handleImageError = (e) => {
@@ -36,10 +34,9 @@ export const PlanetsCard = ({ planets }) => {
         <div className="card-body">
           <h5 className="card-title">{planets.name}</h5>
           <p>
-            Gender: {planets.gender} <br />
-            Hair color: {planets.hair_color}
+            Population: {planets.population} <br />
+            Terrain: {planets.terrain}
             <br />
-            Eye color: {planets.eye_color}
           </p>
           <div className="card-footer text-body-secondary d-flex justify-content-between">
             <Link
@@ -49,9 +46,9 @@ export const PlanetsCard = ({ planets }) => {
               Learn more!
             </Link>
             <i
-              className={`fa-heart fs-1 ${isFavorite ? 'fa-solid' : 'fa-regular'}`} // Conditional class
+              className={`fa-heart fs-1 ${isFavorite ? 'fa-solid' : 'fa-regular'}`} 
               onClick={addFavorite}
-              style={{ cursor: 'pointer' }} // Ensure the icon is clickable
+              style={{ cursor: 'pointer' }} 
             ></i>
           </div>
         </div>
