@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import "../../styles/home.css";
 import { Context } from "../store/appContext";
 import { CharactersCard } from "./charactersCard";
@@ -6,6 +6,10 @@ import { PlanetsCard } from "./planetsCard";
 
 export const Home = () => {
   const { store, actions } = useContext(Context);
+  useEffect(() => {
+    actions.getCharacters();
+    actions.getPlanets();
+  }, []);
 
   return (
     <div className="container mt-5">
